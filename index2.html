@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[НАЗВАНИЕ КОФЕЙНИ] — Магия в каждой чашке</title>
+    <meta name="description" content="Уютная specialty-кофейня с Winx-вайбом. Авторские напитки, десерты и атмосфера места силы для творческих людей в центре города.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="[НАЗВАНИЕ КОФЕЙНИ] — Магия в каждой чашке">
+    <meta property="og:description" content="Уютная specialty-кофейня с Winx-вайбом. Авторские напитки, десерты и атмосфера места силы для творческих людей.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com">
+    <meta property="og:image" content="https://picsum.photos/seed/coffee/1200/630">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #93C572;
+            --secondary: #FFC0CB;
+            --accent: #FFE5B4;
+            --text-dark: #333;
+            --text-medium: #555;
+            --bg-cream: #FFF9F0;
+            --bg-light: #fafafa;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(147, 197, 114, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw + 1rem, 3rem);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '✨';
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            font-size: 1.5rem;
+            color: var(--primary);
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        p {
+            color: var(--text-medium);
+            font-size: clamp(1rem, 2vw + 0.5rem, 1.125rem);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--text-dark);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--text-dark);
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 4px;
+        }
+
+        .section {
+            padding: 4rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .section:nth-child(odd):not(:first-child) {
+            background: linear-gradient(135deg, rgba(255, 192, 203, 0.1) 0%, rgba(255, 229, 180, 0.1) 100%);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Гамбургер (Mobile) */
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            position: relative;
+        }
+
+        .menu-icon span {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon span:nth-child(1) { top: 0; }
+        .menu-icon span:nth-child(2) { top: 8px; }
+        .menu-icon span:nth-child(3) { top: 16px; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 1.5rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--accent) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            text-shadow: 0 0 20px rgba(147, 197, 114, 0.3), 0 0 40px rgba(255, 192, 203, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 3vw + 0.5rem, 1.5rem);
+            margin-bottom: 2rem;
+        }
+
+        .sparkles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .sparkle:nth-child(odd) {
+            animation-delay: 1s;
+        }
+
+        /* Cards */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .menu-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Icons */
+        .icon-box {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .icon-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .icon-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-item span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery */
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Reviews */
+        .reviews-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .review-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .review-card::before {
+            content: '“';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 6rem;
+            color: rgba(255, 192, 203, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social a {
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 2rem;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+                z-index: 999;
+            }
+
+            .menu-toggle:checked ~ nav {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .hero {
+                padding-top: 80px;
+            }
+
+            .icon-box {
+                gap: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .section {
+                padding: 6rem 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <div class="logo"><span>[НАЗВАНИЕ]</span> Coffee</div>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-icon" aria-label="Открыть меню">
+            <span></span><span></span><span></span>
+        </label>
+        <nav aria-label="Основная навигация">
+            <ul>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#menu">Меню</a></li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="sparkles" aria-hidden="true">
+            <div class="sparkle" style="top: 20%; left: 10%;"></div>
+            <div class="sparkle" style="top: 40%; left: 80%;"></div>
+            <div class="sparkle" style="top: 70%; left: 30%;"></div>
+            <div class="sparkle" style="top: 80%; left: 60%;"></div>
+        </div>
+        <div class="hero-content animate-on-scroll">
+            <h1>Магия в каждой чашке</h1>
+            <p>Уютная specialty-кофейня, где фисташковый латте встречается с силой Энчантикс, а утренний эспрессо разгоняет тьму Магикса.</p>
+            <a href="#contact" class="btn">Забронировать столик</a>
+        </div>
+    </section>
+
+    <section id="about" class="section animate-on-scroll">
+        <h2>О нас</h2>
+        <p class="text-center" style="max-width: 800px; margin: 0 auto 3rem;">Мы открыли эту кофейню для тех, кто верит, что утро начинается не с будильника, а с первого глотка. Наша философия проста: спешелти-кофе должен быть доступным, а атмосфера — немного волшебной. Здесь время течет иначе, а идеи приходят сами собой.</p>
+        <div class="icon-box">
+            <div class="icon-item animate-on-scroll" style="animation-delay: 0.1s;">
+                <span>☕</span>
+                <h3>Честный спешелти</h3>
+                <p>Зерно категории 85+, альтернативное заваривание и бариста, который знает историю каждой фермы.</p>
+            </div>
+            <div class="icon-item animate-on-scroll" style="animation-delay: 0.2s;">
+                <span>✨</span>
+                <h3>Winx-вайб</h3>
+                <p>Светлая магия в интерьере, плейлист из нулевых и названия напитков, отсылающие к трансформации фей.</p>
+            </div>
+            <div class="icon-item animate-on-scroll" style="animation-delay: 0.3s;">
+                <span>🌿</span>
+                <h3>Зелёный уголок</h3>
+                <p>Живые растения, экологичная посуда и опция растительного молока без доплаты за магию.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="section animate-on-scroll">
+        <h2>Меню</h2>
+        <div class="grid menu-grid">
+            <div class="card animate-on-scroll">
+                <span class="card-badge">Хит</span>
+                <h3>Латте Enchantix</h3>
+                <p>Эспрессо на зерне из Бразилии, фисташковый сироп и плотная пенка цвета весенней листвы.</p>
+                <div class="price">320 ₽</div>
+            </div>
+            <div class="card animate-on-scroll" style="animation-delay: 0.1s;">
+                <span class="card-badge">Огонь</span>
+                <h3>Эспрессо Dragon Flame</h3>
+                <p>Темная обжарка из Суматры. Плотный, дымный, с долгим послевкусием темного шоколада.</p>
+                <div class="price">180 ₽</div>
+            </div>
+            <div class="card animate-on-scroll" style="animation-delay: 0.2s;">
+                <span class="card-badge">Нежность</span>
+                <h3>Раф Bloom</h3>
+                <p>Сливочный кофе с натуральной ванилью и пудрой сушеной клубники. Твой личный источник сил.</p>
+                <div class="price">380 ₽</div>
+            </div>
+            <div class="card animate-on-scroll" style="animation-delay: 0.3s;">
+                <span class="card-badge">Сияние</span>
+                <h3>Капучино Stella</h3>
+                <p>Идеальный баланс робусты и арабики. Подается с рисунком созвездия на пенке.</p>
+                <div class="price">290 ₽</div>
+            </div>
+            <div class="card animate-on-scroll" style="animation-delay: 0.4s;">
+                <span class="card-badge">Веган</span>
+                <h3>Матча Flora</h3>
+                <p>Японская матча высшего сорта на кокосовом молоке с легкой пенкой из тофу.</p>
+                <div class="price">350 ₽</div>
+            </div>
+            <div class="card animate-on-scroll" style="animation-delay: 0.5s;">
+                <span class="card-badge">Новинка</span>
+                <h3>Какао Aisha</h3>
+                <p>Густой горячий шоколад с щепоткой морской соли и лепестками роз.</p>
+                <div class="price">340 ₽</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section animate-on-scroll">
+        <h2>Галерея</h2>
+        <div class="grid gallery-grid">
+            <div class="gallery-item animate-on-scroll">
+                <img src="https://picsum.photos/seed/coffee1/400/300" alt="Интерьер кофейни с зелеными растениями" loading="lazy">
+            </div>
+            <div class="gallery-item animate-on-scroll" style="animation-delay: 0.1s;">
+                <img src="https://picsum.photos/seed/coffee2/400/300" alt="Чашка латте с латте-артом" loading="lazy">
+            </div>
+            <div class="gallery-item animate-on-scroll" style="animation-delay: 0.2s;">
+                <img src="https://picsum.photos/seed/coffee3/400/300" alt="Витрина с десертами" loading="lazy">
+            </div>
+            <div class="gallery-item animate-on-scroll" style="animation-delay: 0.3s;">
+                <img src="https://picsum.photos/seed/coffee4/400/300" alt="Барная стойка и полка с зерном" loading="lazy">
+            </div>
+            <div class="gallery-item animate-on-scroll" style="animation-delay: 0.4s;">
+                <img src="https://picsum.photos/seed/coffee5/400/300" alt="Человек читает книгу за столиком" loading="lazy">
+            </div>
+            <div class="gallery-item animate-on-scroll" style="animation-delay: 0.5s;">
+                <img src="https://picsum.photos/seed/coffee6/400/300" alt="Детали интерьера: керамика и свет" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="section animate-on-scroll">
+        <h2>Отзывы</h2>
+        <div class="grid reviews-grid">
+            <article class="review-card animate-on-scroll">
+                <div class="avatar">МК</div>
+                <h3>Марина К.</h3>
+                <p>«Пришла поработать с ноутбуком, осталась на три часа. Лучший раф в городе, а свет из окна падает точно как в Магиксе. Вайфай быстрый, розетки у каждого стола».</p>
+            </article>
+            <article class="review-card animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="avatar">АС</div>
+                <h3>Алексей С.</h3>
+                <p>«Эспрессо Dragon Flame — это просто пушка. Плотная крема, идеальная температура. Ребята знают свое дело, атмосфера расслабляет лучше любой медитации».</p>
+            </article>
+            <article class="review-card animate-on-scroll" style="animation-delay: 0.4s;">
+                <div class="avatar">ЕА</div>
+                <h3>Елена А.</h3>
+                <p>«Идеальное место для свидания. Заказали какао Aisha на двоих, очень атмосферно и не слишком громко. Десерты свежие, подача — отдельный вид искусства».</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="contact" class="section animate-on-scroll">
+        <h2>Контакты</h2>
+        <div class="grid form-grid">
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" required placeholder="Как к вам обращаться?">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 000-00-00">
+                </div>
+                <div class="form-group">
+                    <label for="date">Дата и время</label>
+                    <input type="datetime-local" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Комментарий</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Особые пожелания"></textarea>
+                </div>
+                <button type="submit" class="btn">Забронировать</button>
+            </form>
+            <div class="contact-info">
+                <p><strong>📍 Адрес:</strong> г. Москва, ул. Волшебная, д. 1, вход со двора</p>
+                <p><strong>📞 Телефон:</strong> +7 (495) 123-45-67</p>
+                <p><strong>✉️ Email:</strong> magic@yourcoffee.ru</p>
+                <p><strong>⏰ Часы работы:</strong></p>
+                <p>Пн–Пт: 08:00–22:00</p>
+                <p>Сб–Вс: 10:00–23:00</p>
+                <div class="footer-social" style="margin-top: 1.5rem;">
+                    <a href="#" aria-label="Telegram">📢</a>
+                    <a href="#" aria-label="ВКонтакте">💬</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h3>[НАЗВАНИЕ] Coffee</h3>
+            <p>© 2026 Сделано с магией ✨</p>
+        </div>
+        <div class="footer-social">
+            <a href="#" aria-label="Telegram">📢</a>
+            <a href="#" aria-label="ВКонтакте">💬</a>
+            <a href="#" aria-label="Instagram">📸</a>
+        </div>
+    </div>
+</footer>
+
+<a href="#" class="back-to-top" aria-label="Наверх" id="backToTop">↑</a>
+
+<script>
+    // Кнопка "наверх"
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+    backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Ленивая анимация появления секций
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-on-scroll');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.section').forEach(section => {
+        observer.observe(section);
+    });
+</script>
+
+</body>
+</html>

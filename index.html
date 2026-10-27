@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magix Brew — Кофейня</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #93C572;
+            --primary-pink: #FFC0CB;
+            --primary-yellow: #FFE5B4;
+            --text-dark: #2C2C2C;
+            --text-light: #F5F5F5;
+            --bg-dark: #1A1A1A;
+            --magic-sparkle: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--text-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            /* Фоновые магические искорки */
+            background-image: 
+                var(--magic-sparkle), 
+                var(--magic-sparkle);
+            background-size: 300px 300px, 150px 150px;
+            background-position: top -100px left -100px, bottom -100px right -100px;
+            background-repeat: no-repeat;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-yellow) 50%, var(--primary-green) 100%);
+            color: var(--text-dark);
+            text-align: center;
+            padding: 120px 5% 80px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .section {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-pink));
+            border-radius: 2px;
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(147, 197, 114, 0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--primary-pink);
+        }
+
+        .menu-item img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid;
+        }
+
+        .menu-item h4 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item .price {
+            font-weight: bold;
+            color: var(--primary-green);
+            font-size: 1.2rem;
+        }
+
+        /* Кастомные цвета рамок для фей */
+        .menu-item:nth-child(1) img { border-color: #FF66A3; } /* Блум */
+        .menu-item:nth-child(2) img { border-color: #93C572; } /* Флора */
+        .menu-item:nth-child(3) img { border-color: #FFD166; } /* Стелла */
+        .menu-item:nth-child(4) img { border-color: #6688FF; } /* Муза */
+        .menu-item:nth-child(5) img { border-color: #00D8D0; } /* Текна */
+        .menu-item:nth-child(6) img { border-color: #00A3FF; } /* Лейла */
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .promo-card {
+            background: var(--primary-yellow);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-card::before {
+            content: 'АКЦИЯ';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: var(--primary-pink);
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transform: rotate(-45deg) translate(-20%, -30%);
+        }
+
+        .loyalty {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .loyalty-rules {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .rule-icon {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .map-placeholder {
+            background: #e0e0e0;
+            height: 300px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .hours-list li, .address-details li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .hours-list i, .address-details i {
+            color: var(--primary-green);
+        }
+
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 5% 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image {
+                justify-content: center;
+            }
+
+            .loyalty-rules, .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">Magix Brew</div>
+        <nav>
+            <button class="menu-toggle" aria-label="Открыть меню">
+                <i class="ri-menu-line"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#menu">Меню</a></li>
+                <li><a href="#promo">Акции</a></li>
+                <li><a href="#loyalty">Бонусы</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>Ваша утренняя магия в каждой чашке ☕✨</h1>
+    <p>Кофейня, вдохновленная силой и дружбой Winx. Создаем не просто кофе, а настоящее волшебство.</p>
+    <a href="#menu" class="cta-button">Смотреть меню</a>
+</section>
+
+<section id="about" class="section">
+    <h2 class="section-title">О компании</h2>
+    <div class="about">
+        <div class="about-text">
+            <h3>Как родилась Magix Brew?</h3>
+            <p>Мы открыли свои двери в самом сердце города, чтобы объединить любовь к качественному спешелти-кофе и эстетике волшебного мира Winx. Наша миссия — добавить немного магии в повседневную рутину. Мы лично отбираем зерна, а наши бариста — настоящие феи кулинарии, готовые сварить для вас идеальный напиток.</p>
+        </div>
+        <div class="about-image">
+            <!-- Стилизованная иллюстрация феи в кофейне -->
+            <img src="https://placehold.co/400x400/E8F5E8/2E7D32/png?text=Winx+Style+Art" alt="Фея в интерьере кофейни">
+        </div>
+    </div>
+</section>
+
+<section id="menu" class="section">
+    <h2 class="section-title">Фирменные напитки</h2>
+    <div class="menu-grid">
+        <!-- Блум -->
+        <div class="menu-item">
+            <img src="https://placehold.co/120x120/FFC0CB/FFFFFF/png?text=Bloom" alt="Bloom Latte">
+            <h4>Bloom Latte</h4>
+            <p>Нежный лавандовый раф с нотками меда.</p>
+            <div class="price">320 ₽</div>
+        </div>
+        <!-- Флора -->
+        <div class="menu-item">
+            <img src="https://placehold.co/120x120/93C572/FFFFFF/png?text=Flora" alt="Flora Green">
+            <h4>Flora Green</h4>
+            <p>Матча-латте на фисташковом молоке.</p>
+            <div class="price">350 ₽</div>
+        </div>
+        <!-- Стелла -->
+        <div class="menu-item">
+            <img src="https://placehold.co/120x120/FFE5B4/FFFFFF/png?text=Stella" alt="Stella Sunrise">
+            <h4>Stella Sunrise</h4>
+            <p>Эспрессо-тоник с розовым грейпфрутом.</p>
+            <div class="price">290 ₽</div>
+        </div>
+        <!-- Муза -->
+        <div class="menu-item">
+            <img src="https://placehold.co/120x120/6688FF/FFFFFF/png?text=Musa" alt="Musa Velvet">
+            <h4>Musa Velvet</h4>
+            <p>Кремовый капучино с банановым муссом.</p>
+            <div class="price">310 ₽</div>
+        </div>
+        <!-- Текна -->
+        <div class="menu-item">
+            <img src="https://placehold.co/120x120/00D8D0/FFFFFF/png?text=Tecna" alt="Tecna Cold Brew">
+            <h4>Tecna Cold Brew</h4>
+            <p>Нитро-кофе с карамелью и морской солью.</p>
+            <div class="price">340 ₽</div>
+        </div>
+        <!-- Лейла -->
+        <div class="menu-item">
+            <img src="https://placehold.co/120x120/00A3FF/FFFFFF/png?text=Layla" alt="Aisha Spice">
+            <h4>Aisha Spice</h4>
+            <p>Пряный тыквенный латте (сезонный).</p>
+            <div class="price">330 ₽</div>
+        </div>
+    </div>
+</section>
+
+<section id="promo" class="section">
+    <h2 class="section-title">Волшебные акции</h2>
+    <div class="promo-grid">
+        <div class="promo-card">
+            <h3>Счастливые часы</h3>
+            <p>С 14:00 до 16:00 любой большой напиток — со скидкой 30%!</p>
+            <p><small>Акция действует каждый будний день.</small></p>
+        </div>
+        <div class="promo-card">
+            <h3>Приведи друга</h3>
+            <p>Ваш друг получает скидку 20% на первый заказ, а вы — бесплатный круассан к любому кофе.</p>
+        </div>
+    </div>
+</section>
+
+<section id="loyalty" class="section">
+    <h2 class="section-title">Бонусная программа</h2>
+    <p>Присоединяйтесь к нашему клубу магов и получайте награды за любовь к кофе!</p>
+    <div class="loyalty">
+        <div class="loyalty-rules">
+            <div class="rule-item">
+                <i class="ri-customer-service-line rule-icon"></i>
+                <div>
+                    <strong>10% Кэшбэк</strong>
+                    <p>С каждой покупки на вашу бонусную карту возвращается 10% от суммы.</p>
+                </div>
+            </div>
+            <div class="rule-item">
+                <i class="ri-gift-line rule-icon"></i>
+                <div>
+                    <strong>Бесплатный напиток</strong>
+                    <p>Каждые 8-й кофе — в подарок! Накопите 8 штампов в нашем мобильном приложении.</p>
+                </div>
+            </div>
+            <div class="rule-item">
+                <i class="ri-cake-2-line rule-icon"></i>
+                <div>
+                    <strong>День Рождения</strong>
+                    <p>В течение недели до и после вашего праздника — десерт к любому заказу бесплатно.</p>
+                </div>
+            </div>
+            <div class="rule-item">
+                <i class="ri-android-fill rule-icon"></i>
+                <div>
+                    <strong>Цифровая карта</strong>
+                    <p>Никаких пластиковых карт. Храните бонусы и следите за историей заказов в нашем приложении.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section">
+    <h2 class="section-title">Найдите нас</h2>
+    <div class="contact-info">
+        <div>
+            <ul class="address-details">
+                <li><i class="ri-map-pin-line"></i> г. Санкт-Петербург ул. Большая Морская 67</li>
+                <li><i class="ri-phone-line"></i> +7 (677) 123-45-67</li>
+                <li><i class="ri-mail-line"></i> hello@magixbrew.ru</li>
+            </ul>
+            <ul class="hours-list">
+                <li><i class="ri-time-line"></i> Пн–Пт: 08:00 – 22:00</li>
+                <li><i class="ri-time-line"></i> Сб–Вс: 09:00 – 23:00</li>
+            </ul>
+        </div>
+        <div class="map-placeholder">
+            [Интерактивная карта / Схема проезда]
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Magix Brew. Создано с любовью к кофе и магии.</p>
+</footer>
+
+<script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
